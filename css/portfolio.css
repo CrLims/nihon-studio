@@ -1,0 +1,161 @@
+/* ============================================
+   services.css & portfolio.css gabungan
+   karena di wireframe keduanya 1 section
+   Nihon Studio
+   ============================================ */
+
+/* ========== PORTFOLIO & SERVICES SECTION ========== */
+.portfolio-services {
+  position: relative;
+  padding: 80px 0 80px;
+  background: var(--color-bg-section);
+  /* overflow: hidden dihapus agar karakter bisa melampaui batas atas */
+  overflow: visible;
+}
+
+.portfolio-services .container {
+  display: flex;
+  align-items: flex-end;   /* rata bawah agar karakter berdiri di dasar */
+  gap: 40px;
+}
+
+/* Karakter di sisi kiri section — ikuti wireframe: tinggi & melampaui section */
+.section-character {
+  width: clamp(200px, 30vw, 520px);   /* lebih besar dari sebelumnya */
+  height: auto;
+  object-fit: contain;
+  flex-shrink: 0;
+  align-self: flex-end;
+  /* Geser ke atas agar karakter "muncul" dari luar section */
+  margin-bottom: -80px;   /* turun sejajar dasar section */
+  margin-top: -120px;     /* muncul melewati batas atas section */
+  position: relative;
+  z-index: 2;
+}
+
+/* Konten kanan */
+.ps-content {
+  flex: 1;
+}
+
+.ps-content .section-title {
+  margin-bottom: 32px;
+}
+
+/* ---------- Portfolio Grid ---------- */
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.portfolio-card {
+  background: var(--color-white);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  transition: transform var(--transition), box-shadow var(--transition);
+  cursor: pointer;
+}
+
+.portfolio-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-hover);
+}
+
+.portfolio-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.portfolio-card:hover img {
+  transform: scale(1.05);
+}
+
+.card-label {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--color-text);
+  padding: 12px 16px;
+  background: var(--color-white);
+}
+
+/* ========== TESTIMONIES SECTION ========== */
+.testimonies {
+  padding: 80px 0;
+  background: var(--color-bg);
+}
+
+.testimonies .section-title {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+/* ---------- Testimony Grid ---------- */
+.testi-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.testi-card {
+  background: var(--color-bg-section);
+  border-radius: var(--radius-card);
+  padding: 28px 24px;
+  border: 1px solid var(--color-border);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.testi-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card);
+}
+
+.testi-card h4 {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  color: var(--color-primary);
+  margin-bottom: 12px;
+}
+
+.testi-card p {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  line-height: 1.8;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 900px) {
+  .portfolio-services .container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .section-character {
+    width: 200px;
+    margin-top: -60px;
+    margin-bottom: -60px;
+    align-self: flex-end;
+  }
+
+  .testi-grid {
+    grid-template-columns: 1fr;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .portfolio-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .portfolio-card img {
+    height: 200px;
+  }
+}
