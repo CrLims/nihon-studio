@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', function () {
     goToStep(1);
   });
 
-  document.getElementById('step2-next').addEventListener('click', function () {
+document.getElementById('step2-next').addEventListener('click', function () {
     const selected = document.querySelector('input[name="location"]:checked');
 
     if (!selected) {
@@ -132,11 +132,19 @@ document.addEventListener('DOMContentLoaded', function () {
     bookingData.location = selected.value;
 
     if (selected.value === 'Outdoor') {
-      bookingData.locAddress = document.getElementById('outdoor-address').value.trim();
-      bookingData.locMaps    = document.getElementById('outdoor-maps').value.trim();
+      const addr = document.getElementById('outdoor-address').value.trim();
+      const maps = document.getElementById('outdoor-maps').value.trim();
+      if (!addr) { alert('Silakan isi alamat lokasi Outdoor.'); return; }
+      if (!maps) { alert('Silakan isi Google Maps link Outdoor.'); return; }
+      bookingData.locAddress = addr;
+      bookingData.locMaps    = maps;
     } else if (selected.value === 'Home Service') {
-      bookingData.locAddress = document.getElementById('home-address').value.trim();
-      bookingData.locMaps    = document.getElementById('home-maps').value.trim();
+      const addr = document.getElementById('home-address').value.trim();
+      const maps = document.getElementById('home-maps').value.trim();
+      if (!addr) { alert('Silakan isi alamat lokasi Home Service.'); return; }
+      if (!maps) { alert('Silakan isi Google Maps link Home Service.'); return; }
+      bookingData.locAddress = addr;
+      bookingData.locMaps    = maps;
     } else {
       bookingData.locAddress = '';
       bookingData.locMaps    = '';

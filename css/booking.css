@@ -250,6 +250,7 @@
   display: flex;
   gap: 20px;
   flex-wrap: wrap;
+  align-items: stretch;
 }
 
 /* Sembunyikan radio asli */
@@ -261,14 +262,26 @@
   flex: 1;
   min-width: 200px;
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
 }
 
 .loc-card-inner {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
   border: 2px solid var(--color-border);
   border-radius: 16px;
-  overflow: hidden;
+  overflow: visible;
   transition: border-color var(--transition), box-shadow var(--transition);
   background: #f9f9f9;
+  position: relative;
+  z-index: 1;
+}
+
+/* Pastikan seluruh area card bisa diklik */
+.loc-card * {
+  pointer-events: auto;
 }
 
 .loc-card input[type="radio"]:checked + .loc-card-inner {
@@ -281,6 +294,7 @@
   height: 140px;
   background: #e0e0e0;
   overflow: hidden;
+  border-radius: 14px 14px 0 0;
 }
 
 .loc-card-img img {
@@ -291,6 +305,7 @@
 
 .loc-card-body {
   padding: 16px;
+  flex: 1;
 }
 
 .loc-card-body h3 {

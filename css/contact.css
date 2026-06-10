@@ -9,7 +9,7 @@
 }
 
 .contact .container {
-  max-width: 600px;
+  max-width: 800px;
 }
 
 .contact .section-title {
@@ -208,6 +208,58 @@
   font-weight: 700;
 }
 
+/* ========== CONTACT INFO CARDS ========== */
+.contact-info-cards {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.contact-info-card {
+  background: var(--color-white);
+  border-radius: var(--radius-card);
+  padding: 36px 40px;
+  text-align: center;
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--color-border);
+  min-width: 220px;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.contact-info-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+
+.contact-icon {
+  font-size: 2.5rem;
+  margin-bottom: 12px;
+}
+
+.contact-info-card h4 {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  color: var(--color-primary);
+  margin-bottom: 8px;
+}
+
+.contact-info-card p {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  margin-bottom: 0;
+}
+
+/* Logo WA / IG */
+.contact-logo {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  margin: 0 auto 16px;
+  display: block;
+}
+
 /* ========== FOOTER ========== */
 .footer {
   background: var(--color-bg);
@@ -273,7 +325,7 @@
 
 /* Karakter footer di kanan bawah */
 .footer-character {
-  height: clamp(200px, 32vw, 290px);
+  height: clamp(200px, 32vw, 340px);
   width: auto;
   object-fit: contain;
   align-self: flex-end;
