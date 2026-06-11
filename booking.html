@@ -22,7 +22,7 @@
       </a>
       <ul class="nav-links-booking">
         <li><a href="index.html#home">Home</a></li>
-        <li><a href="index.html#services">Services</a></li>        
+        <li><a href="index.html#services">Services</a></li>
         <li><a href="index.html#location">Locations</a></li>
         <li><a href="index.html#contact">Contact Us</a></li>
         <li><a href="booking.html" class="btn-book-active">Booking</a></li>
@@ -54,26 +54,37 @@
       ======================================= -->
       <div class="booking-step active" id="booking-step-1">
         <div class="step-body">
-          <div class="form-group">
-            <label for="b-name">Name</label>
-            <input type="text" id="b-name" placeholder="Your full name" />
+
+          <!-- Baris 1: Name + Phone Number -->
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="b-name">Name</label>
+              <input type="text" id="b-name" placeholder="" />
+            </div>
+            <div class="form-group">
+              <label for="b-phone">Phone Number</label>
+              <input type="tel" id="b-phone" placeholder="" />
+            </div>
           </div>
-          <div class="form-group">
-            <label for="b-email">Email</label>
-            <input type="email" id="b-email" placeholder="Your email address" />
+
+          <!-- Baris 2: Email + Number of People -->
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="b-email">Email</label>
+              <input type="email" id="b-email" placeholder="" />
+            </div>
+            <div class="form-group">
+              <label for="b-people">Number of People</label>
+              <input type="number" id="b-people" placeholder="" min="1" max="50" />
+            </div>
           </div>
-          <div class="form-group">
-            <label for="b-phone">Phone Number</label>
-            <input type="tel" id="b-phone" placeholder="Your phone number" />
-          </div>
-          <div class="form-group">
-            <label for="b-people">Number of People</label>
-            <input type="number" id="b-people" placeholder="e.g. 2" min="1" />
-          </div>
+
+          <!-- Baris 3: Additional Notes full width -->
           <div class="form-group">
             <label for="b-notes">(Optional) Additional Notes</label>
-            <input type="text" id="b-notes" placeholder="Any special requests?" />
+            <textarea id="b-notes" rows="4" placeholder=""></textarea>
           </div>
+
         </div>
         <div class="step-footer single">
           <button class="btn-booking-next" id="step1-next">Next</button>
@@ -92,7 +103,6 @@
               <input type="radio" name="location" id="loc-studio" value="Studio" />
               <div class="loc-card-inner">
                 <div class="loc-card-img">
-                  <!-- Ganti dengan foto studio: assets/img/loc-studio.jpg -->
                   <img src="assets/img/loc-studio.png" alt="Studio" />
                 </div>
                 <div class="loc-card-body">
@@ -162,36 +172,33 @@
         <div class="step-body">
           <div class="service-grid">
 
-            <!-- Service: Selfie -->
             <label class="service-card" for="svc-selfie">
               <input type="radio" name="service" id="svc-selfie" value="Selfie" />
               <div class="service-card-inner">
                 <div class="service-img">
-                  <img src="assets/img/portfolio-selfie.png" alt="Selfie" />
+                  <img src="assets/img/portfolio-selfie.jpg" alt="Product" />
                 </div>
-                <div class="service-label">Selfie</div>
+                <div class="service-label">Photo Product</div>
                 <div class="service-check"><span>✓</span></div>
               </div>
             </label>
 
-            <!-- Service: Photopass -->
             <label class="service-card" for="svc-photopass">
               <input type="radio" name="service" id="svc-photopass" value="Photopass" />
               <div class="service-card-inner">
                 <div class="service-img">
-                  <img src="assets/img/portfolio-photopass.jpeg" alt="Photopass" />
+                  <img src="assets/img/portfolio-photopass.png" alt="Photopass" />
                 </div>
                 <div class="service-label">Photopass</div>
                 <div class="service-check"><span>✓</span></div>
               </div>
             </label>
 
-            <!-- Service: Event -->
             <label class="service-card" for="svc-event">
               <input type="radio" name="service" id="svc-event" value="Event" />
               <div class="service-card-inner">
                 <div class="service-img">
-                  <img src="assets/img/portfolio-4.jpeg" alt="Event" />
+                  <img src="assets/img/portfolio-4.png" alt="Event" />
                 </div>
                 <div class="service-label">Event</div>
                 <div class="service-check"><span>✓</span></div>
@@ -213,7 +220,6 @@
         <div class="step-body">
           <div class="time-layout">
 
-            <!-- Kalender -->
             <div class="calendar-section">
               <div class="calendar-header">
                 <button class="cal-nav" id="cal-prev">&#8249;</button>
@@ -228,11 +234,9 @@
                 <div class="cal-day-name">Fri</div>
                 <div class="cal-day-name">Sat</div>
                 <div class="cal-day-name">Sun</div>
-                <!-- Tanggal diisi oleh booking.js -->
               </div>
             </div>
 
-            <!-- Pilih Waktu -->
             <div class="time-section">
               <label for="b-time">Select Time</label>
               <input type="time" id="b-time" />
@@ -253,7 +257,6 @@
       <div class="booking-step" id="booking-step-5">
         <div class="step-body">
 
-          <!-- Judul -->
           <h2 class="confirm-title">Booking Summary</h2>
 
           <!-- Summary Grid -->
@@ -268,19 +271,15 @@
               <p>Group Size <span id="sum-people">[group size]</span></p>
             </div>
 
-            <!-- Kolom 2: Location -->
-            <div class="confirm-col">
-              <p class="confirm-col-title">Location:</p>
-              <p id="sum-location">[location chosen]</p>
-              <p id="sum-loc-address">[location address]</p>
-              <p id="sum-loc-maps">[location google maps link]</p>
-            </div>
-
-            <!-- Kolom 3: Service + Add-ons -->
+            <!-- Kolom 2: Service + Date & Time + Add-ons -->
             <div class="confirm-col">
               <p class="confirm-col-title">Service:</p>
               <p id="sum-service">[chosen service]</p>
-              <br />
+              <br/>
+              <p class="confirm-col-title">Date & Time:</p>
+              <p id="sum-date">[day, dd-mm-yyyy]</p>
+              <p id="sum-time">[time]</p>
+              <br/>
               <p class="confirm-col-title">Add-ons (optional):</p>
               <select id="sum-addons" class="addons-select">
                 <option value="">-- None --</option>
@@ -290,14 +289,15 @@
               </select>
             </div>
 
-            <!-- Kolom 4: Date & Time -->
+            <!-- Kolom 3: Location -->
             <div class="confirm-col">
-              <p class="confirm-col-title">Date & Time:</p>
-              <p id="sum-date">[day, dd-mm-yyyy]</p>
-              <p id="sum-time">[time]</p>
+              <p class="confirm-col-title">Location:</p>
+              <p id="sum-location">[location chosen]</p>
+              <p id="sum-loc-address">[location address]</p>
+              <p id="sum-loc-maps">[location google maps link]</p>
             </div>
 
-            <!-- Kolom 5: Notes -->
+            <!-- Kolom 4: Notes -->
             <div class="confirm-col">
               <p class="confirm-col-title">Notes:</p>
               <textarea id="sum-notes-edit" rows="4" placeholder="Add notes here..."></textarea>
@@ -330,8 +330,8 @@
             Our team will contact you shortly to confirm your session.
           </p>
         </div>
-        <div class="step-footer double">
-          <a href="index.html" class="btn-booking-back">Back to Home</a>
+        <div class="step-footer single">
+          <a href="index.html" class="btn-booking-next">Back to Home</a>
         </div>
       </div>
 

@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', function () {
     goToStep(1);
   });
 
-document.getElementById('step2-next').addEventListener('click', function () {
+  document.getElementById('step2-next').addEventListener('click', function () {
     const selected = document.querySelector('input[name="location"]:checked');
 
     if (!selected) {
@@ -215,29 +215,36 @@ document.getElementById('step2-next').addEventListener('click', function () {
     }
 
     // Isi tanggal
+    const todayStart = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+
     for (let d = 1; d <= daysInMonth; d++) {
       const cell = document.createElement('div');
       cell.classList.add('cal-day');
       cell.textContent = d;
 
-      // Tandai hari ini
-      if (d === today.getDate() && calMonth === today.getMonth() && calYear === today.getFullYear()) {
+      const thisDate = new Date(calYear, calMonth, d);
+      const isPast = thisDate < todayStart;
+
+      const isToday = (d === today.getDate() && calMonth === today.getMonth() && calYear === today.getFullYear());
+      const isSelected = (selectedDate && selectedDate.d === d && selectedDate.m === calMonth && selectedDate.y === calYear);
+
+      // Tanggal dipilih = prioritas utama (box oranye + angka putih)
+      if (isSelected) {
+        cell.classList.add('selected');
+      } else if (isToday) {
+        // Hari ini hanya bold, tidak ada background
         cell.classList.add('today');
       }
 
-      // Tandai tanggal yang dipilih
-      if (selectedDate &&
-          selectedDate.d === d &&
-          selectedDate.m === calMonth &&
-          selectedDate.y === calYear) {
-        cell.classList.add('selected');
+      // Tanggal lampau — disable, tidak bisa diklik
+      if (isPast) {
+        cell.classList.add('disabled');
+      } else {
+        cell.addEventListener('click', function () {
+          selectedDate = { d: d, m: calMonth, y: calYear };
+          renderCalendar();
+        });
       }
-
-      // Klik tanggal
-      cell.addEventListener('click', function () {
-        selectedDate = { d: d, m: calMonth, y: calYear };
-        renderCalendar(); // Re-render untuk update selected
-      });
 
       grid.appendChild(cell);
     }
@@ -332,26 +339,50 @@ document.getElementById('step2-next').addEventListener('click', function () {
   });
 
   // ============================================
-  // STEP 5 → 6: Confirm
+  // STEP 5 → 6: Confirm — Kirim data ke PHP
   // ============================================
   document.getElementById('step5-confirm').addEventListener('click', function () {
     // Simpan add-ons & notes final
-    bookingData.addons = document.getElementById('sum-addons').value;
-    bookingData.notes  = document.getElementById('sum-notes-edit').value;
+    bookingData.addons      = document.getElementById('sum-addons').value;
+    bookingData.notes       = document.getElementById('sum-notes-edit').value;
+    bookingData.totalPrice  = document.getElementById('sum-total').textContent;
 
-    // Sembunyikan semua tab (step 6 = thank you, tidak punya tab aktif)
-    document.querySelectorAll('.booking-tab').forEach(function (tab) {
-      tab.classList.remove('active');
-      tab.classList.add('done');
+    // Ubah tombol jadi loading
+    const btnConfirm = document.getElementById('step5-confirm');
+    btnConfirm.textContent = 'Menyimpan...';
+    btnConfirm.disabled    = true;
+
+    // Kirim data ke PHP via fetch
+    fetch('php/save_booking.php', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify(bookingData)
+    })
+    .then(function (res) { return res.json(); })
+    .then(function (result) {
+      if (result.success) {
+        // Berhasil — tampilkan halaman Thank You
+        document.querySelectorAll('.booking-tab').forEach(function (tab) {
+          tab.classList.remove('active');
+          tab.classList.add('done');
+        });
+        document.querySelectorAll('.booking-step').forEach(function (s) {
+          s.classList.remove('active');
+        });
+        document.getElementById('booking-step-6').classList.add('active');
+        currentStep = 6;
+      } else {
+        // Gagal — tampilkan pesan error
+        alert('Gagal menyimpan pemesanan: ' + result.message);
+        btnConfirm.textContent = 'Confirm';
+        btnConfirm.disabled    = false;
+      }
+    })
+    .catch(function (err) {
+      alert('Terjadi kesalahan koneksi. Pastikan XAMPP sudah berjalan.');
+      btnConfirm.textContent = 'Confirm';
+      btnConfirm.disabled    = false;
     });
-
-    // Tampilkan step thank you
-    document.querySelectorAll('.booking-step').forEach(function (s) {
-      s.classList.remove('active');
-    });
-    document.getElementById('booking-step-6').classList.add('active');
-
-    currentStep = 6;
   });
 
   // ============================================

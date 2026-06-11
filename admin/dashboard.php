@@ -29,6 +29,7 @@ try {
       s.service_name  AS layanan,
       l.location_type AS lokasi,
       l.address       AS alamat,
+      l.maps_link,
       a.addon_name    AS tambahan,
       b.booking_date,
       b.booking_time,
@@ -178,6 +179,9 @@ $totalCancelled  = count(array_filter($bookings, fn($b) => $b['status'] === 'Can
                 <?= htmlspecialchars($b['lokasi']) ?>
                 <?php if ($b['alamat']): ?>
                   <br/><small><?= htmlspecialchars($b['alamat']) ?></small>
+                <?php endif; ?>
+                <?php if (!empty($b['maps_link'])): ?>
+                  <br/><a href="<?= htmlspecialchars($b['maps_link']) ?>" target="_blank" style="color:#F28C00;font-size:0.78rem;font-weight:700;">📍 Lihat Maps</a>
                 <?php endif; ?>
               </td>
               <td>
